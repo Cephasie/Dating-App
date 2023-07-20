@@ -1,9 +1,6 @@
 package africa.semicolon.promiscuous.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class BasicData {
@@ -11,9 +8,17 @@ public class BasicData {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     private Long id;
+
     private String firstName;
+
     private String lastName;
+
+    @Column(unique = true, nullable  = false)
     private String email;
+
+    @Column(unique = true)
     private String phoneNumber;
+
+    @Column(nullable  = false)
     private String password;
 }
