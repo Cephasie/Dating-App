@@ -17,10 +17,10 @@ public class Media {
     @Enumerated(value = EnumType.STRING)
     private List<Reaction> reactions;
 
+    @Column(unique = true, columnDefinition = "MEDIUMTEXT", length = 1000)
     private String url;
 
     @ManyToOne
     private User user;
 
-    private Integer reactionCount = BigInteger.ZERO.intValue();
 }
