@@ -4,15 +4,20 @@ import africa.semicolon.promiscuous.dtos.requests.RegisterUserRequest;
 import africa.semicolon.promiscuous.dtos.responses.RegisterUserResponse;
 import africa.semicolon.promiscuous.models.User;
 import africa.semicolon.promiscuous.repositories.UserRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.XSlf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 
 @Repository
-@RequiredArgsConstructor
+@Service
+@AllArgsConstructor
 @Slf4j
+//simple login facade for java
+
 public class PromiscuousUserService implements UserService{
 
     private final UserRepository userRepository;
@@ -29,7 +34,7 @@ public class PromiscuousUserService implements UserService{
         //3. save that users profile in the Database
         User savedUser = userRepository.save(user);
         //4. send verification token to the users email
-        String emailResponse=MockEmailService.sendEmail(savedUser.getEmail());
+        String emailResponse = MockEmailService.sendEmail(savedUser.getEmail());
         log.info("email sending response->{}", emailResponse);
         //5. return a response
         RegisterUserResponse registerUserResponse = new RegisterUserResponse();

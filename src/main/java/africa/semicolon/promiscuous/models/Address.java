@@ -3,6 +3,7 @@ package africa.semicolon.promiscuous.models;
 import jakarta.persistence.*;
 
 @Entity
+@Table
 
 public class Address {
     @Id

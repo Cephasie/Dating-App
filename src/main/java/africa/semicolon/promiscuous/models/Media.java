@@ -11,6 +11,7 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     private Long id;
+
     private String description;
 
     @ElementCollection

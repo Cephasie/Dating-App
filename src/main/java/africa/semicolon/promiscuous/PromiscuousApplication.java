@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PromiscuousApplication {
 
 	public static void main(String[] args) {
+		System.out.println("hello guys");
 
 		SpringApplication.run(PromiscuousApplication.class, args);
 	}

@@ -18,8 +18,8 @@ public class UserServiceTest {
     public void  testThatUserCanRegister(){
         //user fills registration form
         RegisterUserRequest registerUserRequest = new RegisterUserRequest();
-        registerUserRequest.setEmail("test@email.com");
-        registerUserRequest.setPassword("password");
+        registerUserRequest.setEmail("testMail@email.com");
+        registerUserRequest.setPassword("TestPassword");
 
         //user submits form by calling register method
         RegisterUserResponse registerUserResponse = userService.register(registerUserRequest);
