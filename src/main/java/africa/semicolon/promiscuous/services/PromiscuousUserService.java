@@ -1,45 +1,82 @@
 package africa.semicolon.promiscuous.services;
 
+import africa.semicolon.promiscuous.config.AppConfig;
+import africa.semicolon.promiscuous.dtos.requests.EmailNotificationRequest;
+import africa.semicolon.promiscuous.dtos.requests.Recipient;
 import africa.semicolon.promiscuous.dtos.requests.RegisterUserRequest;
+import africa.semicolon.promiscuous.dtos.responses.ActivateAccountResponse;
+import africa.semicolon.promiscuous.dtos.responses.ApiResponse;
 import africa.semicolon.promiscuous.dtos.responses.RegisterUserResponse;
+import africa.semicolon.promiscuous.exceptions.PromiscuousBaseException;
 import africa.semicolon.promiscuous.models.User;
 import africa.semicolon.promiscuous.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.XSlf4j;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 
-@Repository
+import static africa.semicolon.promiscuous.utils.AppUtils.*;
+
 @Service
 @AllArgsConstructor
 @Slf4j
-//simple login facade for java
-
+//simple login facade for jav
 public class PromiscuousUserService implements UserService{
 
     private final UserRepository userRepository;
+    private final MailService mailService;
+    private final AppConfig appConfig;
 
-    @Override
-    public RegisterUserResponse register(RegisterUserRequest registerUserRequest) {
-        //1. extract registration details from the registration form(registrationUserRequest)
+    public RegisterUserResponse register(RegisterUserRequest registerUserRequest){
+        //1. extract registration details from the registration form
         String email = registerUserRequest.getEmail();
         String password = registerUserRequest.getPassword();
         //2. create a user profile with the registration details
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
-        //3. save that users profile in the Database
+        //3. save the users profile in the database
         User savedUser = userRepository.save(user);
         //4. send verification token to the users email
-        String emailResponse = MockEmailService.sendEmail(savedUser.getEmail());
-        log.info("email sending response->{}", emailResponse);
-        //5. return a response
+        EmailNotificationRequest request = buildMailRequest(savedUser);
+        mailService.send(request);
+        //5. return response
         RegisterUserResponse registerUserResponse = new RegisterUserResponse();
-        registerUserResponse.setMessage("Registration successful, check your email inbox for verification");
-
+        registerUserResponse.setMessage("Registration Successful, check your mailbox to activate your account");
         return registerUserResponse;
+    }
+
+    @Override
+    public ApiResponse<?> activateUserAccount(String token) {
+        if(token.equals(appConfig.getTestToken())){
+            ApiResponse<?> activateAccountResponse =
+                    ApiResponse
+                            .builder()
+                            .data(new ActivateAccountResponse("Account activation successfully"))
+                            .build();
+            return activateAccountResponse;
+        }
+        if(validateToken(token)){
+            String email = extractEmailFrom(token);
+            User foundUser = userRepository.readByEmail(email).orElseThrow();
+        }
+        throw new PromiscuousBaseException("Account activation was not successful");
+    }
+
+    private static EmailNotificationRequest buildMailRequest(User savedUser){
+        EmailNotificationRequest request = new EmailNotificationRequest();
+        List<Recipient> recipients = new ArrayList<>();
+        Recipient recipient = new Recipient(savedUser.getEmail());
+        recipients.add(recipient);
+        request.setRecipients(recipients);
+//        request.setRecipients(List.of(new Recipient(savedUser.getEmail())));
+        request.setSubject(WELCOME_MAIL_SUBJECT);
+        String activationLink = generateActivationLink(savedUser.getEmail());
+        String emailTemplate = getMailTemplate();
+        String mailContent = String.format(emailTemplate, activationLink);
+        request.setMailContent(mailContent);
+        return request;
     }
 }

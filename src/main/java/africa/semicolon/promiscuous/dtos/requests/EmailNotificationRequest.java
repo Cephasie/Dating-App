@@ -8,28 +8,22 @@ import lombok.Setter;
 
 import java.util.List;
 
+import static africa.semicolon.promiscuous.utils.AppUtils.APP_EMAIL;
+import static africa.semicolon.promiscuous.utils.AppUtils.APP_NAME;
+
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-
 public class EmailNotificationRequest {
-    private Sender sender;
-
-    //to
+    private final Sender sender = new Sender(APP_NAME, APP_EMAIL);
     @JsonProperty("to")
     private List<Recipient> recipients;
-
-    //cc
     @JsonProperty("cc")
     private List<String> copiedEmails;
-
-    //htmlContent
     @JsonProperty("htmlContent")
     private String mailContent;
 
     private String textContent;
-
     private String subject;
-
 }

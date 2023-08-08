@@ -38,7 +38,7 @@ public class MailServiceTest {
         request.setMailContent(message);
         request.setRecipients(recipients);
         request.setSubject(subject);
-        request.setSender(sender);
+//        request.setSender(sender);
 
         EmailNotificationResponse emailNotificationResponse = mailService.send(request);
         assertNotNull(emailNotificationResponse);
