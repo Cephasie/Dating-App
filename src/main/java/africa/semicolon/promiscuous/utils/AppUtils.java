@@ -18,7 +18,7 @@ public class AppUtils {
     public static final String APP_NAME = "promiscuous inc";
     public static final String APP_EMAIL = "noreply@promiscuous.africa";
     public static final String WELCOME_MAIL_SUBJECT = "Welcome to promiscuous inc.";
-    private static final String MAIL_TEMPLATE_LOCATION = "C:\\Users\\USER\\Desktop\\spring\\promiscuous\\src\\main\\resources\\templates\\index.html";
+    private static final String MAIL_TEMPLATE_LOCATION = "C:\\Users\\USER\\Desktop\\Spring_Projects\\promiscuous\\src\\main\\resources\\templates\\index.html";
 
     public static String generateActivationLink(String email){
         String baseUrl = "http://localhost:8080";

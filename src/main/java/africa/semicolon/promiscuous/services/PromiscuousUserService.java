@@ -33,15 +33,19 @@ public class PromiscuousUserService implements UserService{
         //1. extract registration details from the registration form
         String email = registerUserRequest.getEmail();
         String password = registerUserRequest.getPassword();
+
         //2. create a user profile with the registration details
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
+
         //3. save the users profile in the database
         User savedUser = userRepository.save(user);
+
         //4. send verification token to the users email
         EmailNotificationRequest request = buildMailRequest(savedUser);
         mailService.send(request);
+
         //5. return response
         RegisterUserResponse registerUserResponse = new RegisterUserResponse();
         registerUserResponse.setMessage("Registration Successful, check your mailbox to activate your account");
