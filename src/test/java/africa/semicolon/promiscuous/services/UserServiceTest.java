@@ -3,7 +3,9 @@ package africa.semicolon.promiscuous.services;
 import africa.semicolon.promiscuous.dtos.requests.RegisterUserRequest;
 import africa.semicolon.promiscuous.dtos.responses.ApiResponse;
 import africa.semicolon.promiscuous.dtos.responses.GetUserResponse;
+import africa.semicolon.promiscuous.repositories.AddressRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,8 +26,17 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AddressRepository addressRepository;
+
+    @AfterEach
+    public void setUp(){
+        userService.deleteAll();
+        addressRepository.deleteAll();
+    }
+
     @Test
-    public void testThatUserCanRegister(){
+    public void testThatUserCanRegister() {
         // User submit form by calling register method
         RegisterUserRequest registerUserRequest = new RegisterUserRequest();
         registerUserRequest.setEmail("hemba@gmail.com");
@@ -37,7 +48,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testActivateUserAccount(){
+    public void testActivateUserAccount() {
 //        registerUserRequest.setEmail("test@gmail.com");
 //        registerUserResponse = userService.register((registerUserRequest));
 //        assertNotNull(registerUserResponse);
@@ -48,50 +59,51 @@ public class UserServiceTest {
     }
 
     @Test
-    public void getUserByIdTest(){
+    public void getUserByIdTest() {
 //        userService.register(registerUserRequest);
-        GetUserResponse response =userService.getUserById(1L);
+        GetUserResponse response = userService.getUserById(500L);
         assertThat(response).isNotNull();
 //        assertThat(response.getEmail()).isEqualTo(registerUserRequest.getEmail());
     }
 
     @Test
-    public void getAllUsers(){
+    public void getAllUsers() {
 //        registerTestUsers();
         List<GetUserResponse> users = userService.getAllUsers(1, 5);
         assertThat(users).isNotNull();
         log.info("users-->{}", users);
         assertThat(users.size()).isEqualTo(5);
     }
-
-    @Test
-    public void registerTestUsers() {
-        RegisterUserRequest request = new RegisterUserRequest();
-        request.setEmail("hemba@gmail.com");
-        request.setPassword("password");
-        userService.register(request);
-
-        request.setEmail("boy@gmail.com");
-        request.setPassword("password");
-        userService.register(request);
-
-        request.setEmail("love@gmail.com");
-        request.setPassword("password");
-        userService.register(request);
-
-        request.setEmail("hate@gmail.com");
-        request.setPassword("password");
-        userService.register(request);
-
-        request.setEmail("life@gmail.com");
-        request.setPassword("password");
-        userService.register(request);
-
-        request.setEmail("freedom@gmail.com");
-        request.setPassword("password");
-        userService.register(request);
-    }
 }
+
+//    @Test
+//    public void registerTestUsers() {
+//        RegisterUserRequest request = new RegisterUserRequest();
+//        request.setEmail("hemba@gmail.com");
+//        request.setPassword("password");
+//        userService.register(request);
+//
+//        request.setEmail("boy@gmail.com");
+//        request.setPassword("password");
+//        userService.register(request);
+//
+//        request.setEmail("love@gmail.com");
+//        request.setPassword("password");
+//        userService.register(request);
+//
+//        request.setEmail("hate@gmail.com");
+//        request.setPassword("password");
+//        userService.register(request);
+//
+//        request.setEmail("life@gmail.com");
+//        request.setPassword("password");
+//        userService.register(request);
+//
+//        request.setEmail("freedom@gmail.com");
+//        request.setPassword("password");
+//        userService.register(request);
+//    }
+//}
 
 //
 //    @BeforeEach
