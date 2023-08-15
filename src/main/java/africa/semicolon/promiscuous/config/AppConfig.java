@@ -12,11 +12,19 @@ public class AppConfig {
     @Value("${app.dev.token}")
     private String testToken;
 
+    @Value("localhost:8080")
+    private String baseUrl;
+
     public String getMailApiKey(){
+
         return mailApiKey;
     }
 
     public String getTestToken() {
+
         return this.testToken;
+    }
+    public String getBaseUrl(){
+        return baseUrl;
     }
 }
