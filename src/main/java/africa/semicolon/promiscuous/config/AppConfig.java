@@ -16,14 +16,13 @@ public class AppConfig {
     private String baseUrl;
 
     public String getMailApiKey(){
-
         return mailApiKey;
     }
 
     public String getTestToken() {
-
         return this.testToken;
     }
+
     public String getBaseUrl(){
         return baseUrl;
     }

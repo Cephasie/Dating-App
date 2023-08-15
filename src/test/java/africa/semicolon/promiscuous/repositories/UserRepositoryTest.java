@@ -22,21 +22,24 @@ class UserRepositoryTest {
                 User.builder().
                         email("hemba@gmail.com")
                         .password("12345")
+                        .firstName("John")
                         .build());
 
         userRepository.save(
                 User.builder().
                         email("test@gmail.com")
                         .password("12345")
+                        .firstName("Theo")
                         .build());
 
         userRepository.save(
                 User.builder().
                         email("cephas@gmail.com")
                         .password("12345")
+                        .firstName("Cephas")
                         .build());
 
-        Optional<User> foundUser = userRepository.findByEmail("coutinho@gmail.com");
+        Optional<User> foundUser = userRepository.findByEmail("hemba@gmail.com");
         assertThat(foundUser).isPresent();
         assertThat(foundUser).isNotNull();
 

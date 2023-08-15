@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static africa.semicolon.promiscuous.dtos.responses.ResponseMessage.ACCOUNT_ACTIVATION_SUCCESSFUL;
+import static africa.semicolon.promiscuous.dtos.responses.ResponseMessage.USER_REGISTRATION_SUCCESSFUL;
 import static africa.semicolon.promiscuous.exceptions.ExceptionMessage.*;
 import static africa.semicolon.promiscuous.utils.AppUtils.*;
 import static africa.semicolon.promiscuous.utils.JwtUtils.extractEmailFrom;
@@ -154,22 +156,7 @@ public class PromiscuousUserService implements UserService{
         return activateAccountResponse;
     }
 
-//        if(token.equals(appConfig.getTestToken())){
-//            ApiResponse<?> activateAccountResponse =
-//                    ApiResponse
-//                            .builder()
-//                            .data(new ActivateAccountResponse("Account activation successfully"))
-//                            .build();
-//            return activateAccountResponse;
-//        }
-//        if(validateToken(token)){
-//            String email = extractEmailFrom(token);
-//            User foundUser = userRepository.readByEmail(email).orElseThrow();
-//        }
-//        throw new PromiscuousBaseException("Account activation was not successful");
-//    }
-
-    private static EmailNotificationRequest buildMailRequest(User savedUser){
+    private EmailNotificationRequest buildMailRequest(User savedUser){
         EmailNotificationRequest request = new EmailNotificationRequest();
         List<Recipient> recipients = new ArrayList<>();
         Recipient recipient = new Recipient(savedUser.getEmail());
@@ -184,3 +171,18 @@ public class PromiscuousUserService implements UserService{
         return request;
     }
 }
+
+//        if(token.equals(appConfig.getTestToken())){
+//            ApiResponse<?> activateAccountResponse =
+//                    ApiResponse
+//                            .builder()
+//                            .data(new ActivateAccountResponse("Account activation successfully"))
+//                            .build();
+//            return activateAccountResponse;
+//        }
+//        if(validateToken(token)){
+//            String email = extractEmailFrom(token);
+//            User foundUser = userRepository.readByEmail(email).orElseThrow();
+//        }
+//        throw new PromiscuousBaseException("Account activation was not successful");
+//    }

@@ -3,6 +3,7 @@ package africa.semicolon.promiscuous.utils;
 import africa.semicolon.promiscuous.config.AppConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static africa.semicolon.promiscuous.utils.AppUtils.generateActivationLink;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -10,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 
 class AppUtilsTest {
-
     private  AppConfig appConfig;
 
     @Test
