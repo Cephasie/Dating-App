@@ -1,16 +1,10 @@
 package africa.semicolon.promiscuous.controllers;
 
-import africa.semicolon.promiscuous.dto.request.FindUserRequest;
-import africa.semicolon.promiscuous.dto.request.RegisterUserRequest;
-import africa.semicolon.promiscuous.dto.response.GetUserResponse;
-import africa.semicolon.promiscuous.dto.response.RegisterUserResponse;
 import africa.semicolon.promiscuous.dtos.requests.FindUserRequest;
 import africa.semicolon.promiscuous.dtos.requests.RegisterUserRequest;
 import africa.semicolon.promiscuous.dtos.responses.GetUserResponse;
 import africa.semicolon.promiscuous.dtos.responses.RegisterUserResponse;
 import africa.semicolon.promiscuous.services.UserService;
-import africa.semicolon.promiscuous.services.UserServices;
-
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

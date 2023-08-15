@@ -24,8 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static africa.semicolon.promiscuous.exceptions.ExceptionMessage.USER_NOT_FOUND_EXCEPTION;
+import static africa.semicolon.promiscuous.exceptions.ExceptionMessage.*;
 import static africa.semicolon.promiscuous.utils.AppUtils.*;
+import static africa.semicolon.promiscuous.utils.JwtUtils.extractEmailFrom;
+import static africa.semicolon.promiscuous.utils.JwtUtils.validateToken;
 
 @Service
 @AllArgsConstructor
@@ -99,7 +101,7 @@ public class PromiscuousUserService implements UserService{
     }
 
     private Pageable buildPageRequest(int page, int pageSize) {
-        if (page<1&&pageSize<1)return PageRequest.of(0,10);
+        if (page<1 && pageSize<1)return PageRequest.of(0,10);
         if (page<1)return  PageRequest.of(0,pageSize);
         if (pageSize<1)return PageRequest.of(page,pageSize);
         return PageRequest.of(page-1, pageSize);
@@ -174,7 +176,7 @@ public class PromiscuousUserService implements UserService{
         recipients.add(recipient);
         request.setRecipients(recipients);
 //        request.setRecipients(List.of(new Recipient(savedUser.getEmail())));
-        request.setSubject(WELCOME_MAIL_SUBJECT);
+        request.setSubject(WELCOME_MESSAGE);
         String activationLink = generateActivationLink(appConfig.getBaseUrl(), savedUser.getEmail());
         String emailTemplate = getMailTemplate();
         String mailContent = String.format(emailTemplate, activationLink);
