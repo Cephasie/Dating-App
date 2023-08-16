@@ -2,12 +2,10 @@ package africa.semicolon.promiscuous.services;
 
 import africa.semicolon.promiscuous.config.AppConfig;
 import africa.semicolon.promiscuous.dtos.requests.EmailNotificationRequest;
+import africa.semicolon.promiscuous.dtos.requests.LoginRequest;
 import africa.semicolon.promiscuous.dtos.requests.Recipient;
 import africa.semicolon.promiscuous.dtos.requests.RegisterUserRequest;
-import africa.semicolon.promiscuous.dtos.responses.ActivateAccountResponse;
-import africa.semicolon.promiscuous.dtos.responses.ApiResponse;
-import africa.semicolon.promiscuous.dtos.responses.GetUserResponse;
-import africa.semicolon.promiscuous.dtos.responses.RegisterUserResponse;
+import africa.semicolon.promiscuous.dtos.responses.*;
 import africa.semicolon.promiscuous.exceptions.AccountActivationException;
 import africa.semicolon.promiscuous.exceptions.UserNotFoundException;
 import africa.semicolon.promiscuous.models.Address;
@@ -28,8 +26,7 @@ import static africa.semicolon.promiscuous.dtos.responses.ResponseMessage.ACCOUN
 import static africa.semicolon.promiscuous.dtos.responses.ResponseMessage.USER_REGISTRATION_SUCCESSFUL;
 import static africa.semicolon.promiscuous.exceptions.ExceptionMessage.*;
 import static africa.semicolon.promiscuous.utils.AppUtils.*;
-import static africa.semicolon.promiscuous.utils.JwtUtils.extractEmailFrom;
-import static africa.semicolon.promiscuous.utils.JwtUtils.validateToken;
+import static africa.semicolon.promiscuous.utils.JwtUtils.*;
 
 @Service
 @AllArgsConstructor
@@ -64,6 +61,24 @@ public class PromiscuousUserService implements UserService{
         RegisterUserResponse registerUserResponse = new RegisterUserResponse();
         registerUserResponse.setMessage(USER_REGISTRATION_SUCCESSFUL.name());
         return registerUserResponse;
+    }
+
+    @Override
+    public LoginResponse login(LoginRequest loginRequest) {
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+
+        Optional<User> foundUser = userRepository.findByEmail(email);
+        User user = foundUser.orElseThrow(() -> new UserNotFoundException(String.format(USER_WITH_EMAIL_NOT_FOUND_EXCEPTION.getMessage(), email)
+        ));
+        boolean isValidPassword = matches(user.getPassword(), password);
+        if (isValidPassword) {
+            String accessToken = generateToken(email);
+            LoginResponse loginResponse = new LoginResponse();
+            loginResponse.setAccessToken(accessToken);
+            return loginResponse;
+        }
+        throw new BadCredentialsException(INVALID_CREDENTIALS_EXCEPTION)
     }
 
     @Override

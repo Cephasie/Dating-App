@@ -1,5 +1,6 @@
 package africa.semicolon.promiscuous.services;
 
+import africa.semicolon.promiscuous.dtos.requests.LoginRequest;
 import africa.semicolon.promiscuous.dtos.requests.RegisterUserRequest;
 import africa.semicolon.promiscuous.dtos.responses.ApiResponse;
 import africa.semicolon.promiscuous.dtos.responses.GetUserResponse;
@@ -56,6 +57,16 @@ public class UserServiceTest {
                 userService.activateUserAccount("abc1234.erytuuoi.67t75646");
 
         assertThat(activateUserAccountResponse).isNotNull();
+    }
+
+    @Test
+    public void testThatUserCanLogin(){
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail("test@email.com");
+        loginRequest.setPassword("password");
+
+        LoginResponse response = userService.login(loginRequest);
+        assertThat(response.isNotNull);
     }
 
     @Test

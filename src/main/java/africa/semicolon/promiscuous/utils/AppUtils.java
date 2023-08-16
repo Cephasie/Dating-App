@@ -38,6 +38,10 @@ public class AppUtils {
         return activationLink;
     }
 
+    public static boolean matches(String first, String second){
+
+    }
+
 
 
 
