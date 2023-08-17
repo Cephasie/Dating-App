@@ -4,6 +4,7 @@ import africa.semicolon.promiscuous.dtos.requests.LoginRequest;
 import africa.semicolon.promiscuous.dtos.requests.RegisterUserRequest;
 import africa.semicolon.promiscuous.dtos.responses.ApiResponse;
 import africa.semicolon.promiscuous.dtos.responses.GetUserResponse;
+import africa.semicolon.promiscuous.dtos.responses.LoginResponse;
 import africa.semicolon.promiscuous.repositories.AddressRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
@@ -66,7 +67,7 @@ public class UserServiceTest {
         loginRequest.setPassword("password");
 
         LoginResponse response = userService.login(loginRequest);
-        assertThat(response.isNotNull);
+        assertThat(response).isNotNull();
     }
 
     @Test

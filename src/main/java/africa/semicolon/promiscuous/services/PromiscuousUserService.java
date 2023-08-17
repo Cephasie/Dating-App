@@ -39,6 +39,11 @@ public class PromiscuousUserService implements UserService{
     private final AppConfig appConfig;
 
     @Override
+    public LoginResponse login() {
+        return null;
+    }
+
+    @Override
     public RegisterUserResponse register(RegisterUserRequest registerUserRequest){
         //1. extract registration details from the registration form
         String email = registerUserRequest.getEmail();
