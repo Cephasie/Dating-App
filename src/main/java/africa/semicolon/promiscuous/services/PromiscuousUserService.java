@@ -124,6 +124,7 @@ public class PromiscuousUserService implements UserService{
 
     @Override
     public void deleteAll(){
+
         userRepository.deleteAll();
     }
 

@@ -17,7 +17,7 @@ class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    public void readByEmail(){
+    public void findByEmail(){
         userRepository.save(
                 User.builder().
                         email("hemba@gmail.com")

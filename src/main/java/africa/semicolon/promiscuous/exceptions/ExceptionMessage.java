@@ -2,7 +2,7 @@ package africa.semicolon.promiscuous.exceptions;
 
 public enum ExceptionMessage {
 
-    USER_NOT_FOUND_EXCEPTION("User no found"),
+    USER_NOT_FOUND_EXCEPTION("User not found"),
 
     USER_WITH_EMAIL_NOT_FOUND_EXCEPTION("user with email %s not found"),
 

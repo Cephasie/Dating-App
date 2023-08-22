@@ -44,9 +44,9 @@ public class UserServiceTest {
         registerUserRequest.setEmail("hemba@gmail.com");
         registerUserRequest.setPassword("password");
         var registerUserResponse = userService.register(registerUserRequest);
+
         assertNotNull(registerUserResponse);
         assertNotNull(registerUserResponse.getMessage());
-
     }
 
     @Test
@@ -56,7 +56,6 @@ public class UserServiceTest {
 //        assertNotNull(registerUserResponse);
         ApiResponse<?> activateUserAccountResponse =
                 userService.activateUserAccount("abc1234.erytuuoi.67t75646");
-
         assertThat(activateUserAccountResponse).isNotNull();
     }
 
