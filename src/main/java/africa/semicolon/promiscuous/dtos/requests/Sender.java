@@ -8,5 +8,7 @@ import lombok.*;
 
 public class Sender {
     private String name;
+
+    @NonNull
     private String email;
 }
