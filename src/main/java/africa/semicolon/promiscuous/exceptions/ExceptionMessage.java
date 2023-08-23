@@ -6,24 +6,22 @@ public enum ExceptionMessage {
 
     USER_WITH_EMAIL_NOT_FOUND_EXCEPTION("user with email %s not found"),
 
-    ACCOUNT_ACTIVATION_FAILED_EXCEPTION("Account activation was not successfully");
+    INVALID_CREDENTIALS_EXCEPTION("Invalid authentication credentials"),
+
+    ACCOUNT_ACTIVATION_FAILED_EXCEPTION("Account activation was not successful"),
+
+    USER_REGISTRATION_FAILED_EXCEPTION("User registration failed");
 
 
-    ExceptionMessage(){
+    ExceptionMessage(String message) {
 
-    }
-
-    ExceptionMessage(String message){
         this.message = message;
     }
 
-    private String message;
+    private final String message;
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

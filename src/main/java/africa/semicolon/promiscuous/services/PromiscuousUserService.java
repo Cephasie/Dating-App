@@ -6,7 +6,7 @@ import africa.semicolon.promiscuous.dtos.requests.LoginRequest;
 import africa.semicolon.promiscuous.dtos.requests.Recipient;
 import africa.semicolon.promiscuous.dtos.requests.RegisterUserRequest;
 import africa.semicolon.promiscuous.dtos.responses.*;
-import africa.semicolon.promiscuous.exceptions.AccountActivationException;
+import africa.semicolon.promiscuous.exceptions.AccountActivationFailedException;
 import africa.semicolon.promiscuous.exceptions.UserNotFoundException;
 import africa.semicolon.promiscuous.models.Address;
 import africa.semicolon.promiscuous.models.User;
@@ -93,7 +93,7 @@ public class PromiscuousUserService implements UserService{
         boolean isValidJwt = validateToken(token);
 
         if (isValidJwt) return activateAccount(token);
-        throw new AccountActivationException(ACCOUNT_ACTIVATION_FAILED_EXCEPTION.getMessage());
+        throw new AccountActivationFailedException(ACCOUNT_ACTIVATION_FAILED_EXCEPTION.getMessage());
     }
     @Override
     public GetUserResponse getUserById(Long id) {
