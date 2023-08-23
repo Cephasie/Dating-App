@@ -12,17 +12,37 @@ public class AppConfig {
     @Value("${app.dev.token}")
     private String testToken;
 
-    @Value("localhost:8080")
+    @Value("${app.base.url}")
     private String baseUrl;
 
-    public String getMailApiKey(){
+    @Value("${cloud.api.name}")
+    private String cloudApiName;
+
+    @Value("${cloud.api.key}")
+    private String cloudApiKey;
+
+    @Value("${cloud.api.secret}")
+    private String cloudApiSecret;
+
+    public String getCloudApiName() {
+        return cloudApiName;
+    }
+
+    public String getCloudApiKey() {
+        return cloudApiKey;
+    }
+
+    public String getCloudApiSecret() {
+        return cloudApiSecret;
+    }
+
+    public String getMailApiKey() {
         return mailApiKey;
     }
 
     public String getTestToken() {
         return this.testToken;
     }
-
     public String getBaseUrl(){
         return baseUrl;
     }
