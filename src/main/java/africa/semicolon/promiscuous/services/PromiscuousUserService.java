@@ -101,23 +101,23 @@ public class PromiscuousUserService implements UserService{
                 .toList();
     }
 
-    @Override
-    public LoginResponse login(LoginRequest loginRequest) {
-        String email = loginRequest.getEmail();
-        String password = loginRequest.getPassword();
-
-        Optional<User> foundUser = userRepository.findByEmail(email);
-        User user = foundUser.orElseThrow(()-> new UserNotFoundException(
-                String.format(USER_WITH_EMAIL_NOT_FOUND_EXCEPTION.getMessage(), email)));
-        boolean isValidPassword = matches(user.getPassword(), password);
-        if(isValidPassword){
-            String accessToken = generateToken(email);
-            LoginResponse loginResponse = new LoginResponse();
-            loginResponse.setAccessToken(accessToken);
-            return loginResponse;
-        }
-        throw new BadCredentialsException(INVALID_CREDENTIALS_EXCEPTION.getMessage());
-    }
+//    @Override
+//    public LoginResponse login(LoginRequest loginRequest) {
+//        String email = loginRequest.getEmail();
+//        String password = loginRequest.getPassword();
+//
+//        Optional<User> foundUser = userRepository.findByEmail(email);
+//        User user = foundUser.orElseThrow(()-> new UserNotFoundException(
+//                String.format(USER_WITH_EMAIL_NOT_FOUND_EXCEPTION.getMessage(), email)));
+//        boolean isValidPassword = matches(user.getPassword(), password);
+//        if(isValidPassword){
+//            String accessToken = generateToken(email);
+//            LoginResponse loginResponse = new LoginResponse();
+//            loginResponse.setAccessToken(accessToken);
+//            return loginResponse;
+//        }
+//        throw new BadCredentialsException(INVALID_CREDENTIALS_EXCEPTION.getMessage());
+//    }
 
 //    @Override
 //    public UpdateUserResponse updateUserProfile(JsonPatch jsonPatch, Long id){
