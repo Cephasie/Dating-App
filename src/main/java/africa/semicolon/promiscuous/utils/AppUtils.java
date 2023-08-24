@@ -14,22 +14,12 @@ public class AppUtils {
 
     public static final String APP_NAME = "promiscuous inc";
     public static final String APP_EMAIL = "noreply@promiscuous.africa";
-    public static final String WELCOME_MESSAGE = "Welcome to promiscuous inc.";
+    public static final String WELCOME_MAIL_SUBJECT = "Welcome to promiscuous inc.";
+    public static final String TEST_IMAGE_LOCATION = " ";
     public static final String BLANK_SPACE = " ";
     private static final String MAIL_TEMPLATE_LOCATION = "C:\\Users\\USER\\Desktop\\Spring_Projects\\promiscuous\\src\\main\\resources\\templates\\index.html";
     private static final String EMPTY_STRING = "";
     private static final String ACTIVATE_ACCOUNT_PATH = "/user/activate?code=";
-
-    public static String generateActivationLink(String email){
-        String baseUrl = "http://localhost:8080";
-        String urlActivatePath = "/activate";
-        String queryStringPrefix = "?";
-        String queryStringKey = "code=";
-        String token = generateToken(email);
-        String activationLink = baseUrl+urlActivatePath+queryStringPrefix+queryStringKey+token;
-
-        return activationLink;
-    }
 
     public static String generateActivationLink(String baseUrl, String email){
         String token = generateToken(email);
@@ -37,13 +27,6 @@ public class AppUtils {
         String activationLink = baseUrl+ACTIVATE_ACCOUNT_PATH+token;
         return activationLink;
     }
-
-    public static boolean matches(String first, String second){
-
-    }
-
-
-
 
     public static String getMailTemplate() {
         Path templateLocation = Paths.get(MAIL_TEMPLATE_LOCATION);
@@ -55,6 +38,47 @@ public class AppUtils {
             throw new PromiscuousBaseException(exception.getMessage());
         }
     }
+
+    public static boolean matches(String first, String second){
+        return first.equals(second);
+    }
+}
+
+//    public static String generateActivationLink(String email){
+//        String baseUrl = "http://localhost:8080";
+//        String urlActivatePath = "/activate";
+//        String queryStringPrefix = "?";
+//        String queryStringKey = "code=";
+//        String token = generateToken(email);
+//        String activationLink = baseUrl+urlActivatePath+queryStringPrefix+queryStringKey+token;
+//
+//        return activationLink;
+//    }
+//
+//    public static String generateActivationLink(String baseUrl, String email){
+//        String token = generateToken(email);
+//        //localhost:8080/user/activate?code=xxxxxxxxxxxx
+//        String activationLink = baseUrl+ACTIVATE_ACCOUNT_PATH+token;
+//        return activationLink;
+//    }
+//
+//    public static boolean matches(String first, String second){
+//
+//    }
+//
+//
+//
+//
+//    public static String getMailTemplate() {
+//        Path templateLocation = Paths.get(MAIL_TEMPLATE_LOCATION);
+//        try {
+//            List<String> fileContents = Files.readAllLines(templateLocation);
+//            String template = String.join(EMPTY_STRING, fileContents);
+//            return template;
+//        }catch (IOException exception){
+//            throw new PromiscuousBaseException(exception.getMessage());
+//        }
+//    }
 
 
 //    public static String generateToken(String email){
@@ -92,4 +116,3 @@ public class AppUtils {
 //        var claim = JWT.decode(token).getClaim("user");
 //        return (String) claim.asMap().get("user");
 //    }
-}

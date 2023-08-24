@@ -3,9 +3,8 @@ package africa.semicolon.promiscuous.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Notification")
+//@Table(name = "Notification")
 public class Notification {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
