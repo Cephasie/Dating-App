@@ -65,9 +65,6 @@ public class PromiscuousUserService implements UserService{
         return registerUserResponse;
     }
 
-
-
-
     @Override
     public ApiResponse<?>activateUserAccount(String token) {
         boolean isTestToken = token.equals(appConfig.getTestToken());
@@ -283,4 +280,21 @@ public class PromiscuousUserService implements UserService{
         request.setMailContent(mailContent);
         return request;
     }
+
+    @Override
+    public List<User> suggestUserByInterest(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) throw new RuntimeException("User Not Found");
+        User user = optionalUser.get();
+
+        Set<Interest> userInterests = user.getInterests();
+
+        return userRepository.findAll()
+                .stream()
+                .filter(otherUsers-> !otherUsers.getId().equals(userId))
+                .filter(otherUsers -> !Collections.disjoint(userInterests, otherUsers.getInterests()))
+                .collect(Collectors.toList());
+
+    }
+
 }

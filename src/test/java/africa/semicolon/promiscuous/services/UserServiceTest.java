@@ -7,6 +7,7 @@ import africa.semicolon.promiscuous.dtos.requests.UpdateUserRequest;
 import africa.semicolon.promiscuous.dtos.responses.*;
 import africa.semicolon.promiscuous.exceptions.BadCredentialsException;
 import africa.semicolon.promiscuous.exceptions.PromiscuousBaseException;
+import africa.semicolon.promiscuous.models.User;
 import africa.semicolon.promiscuous.repositories.AddressRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
@@ -57,10 +58,11 @@ public class UserServiceTest {
         assertNotNull(registerUserResponse);
         assertNotNull(registerUserResponse.getMessage());
     }
+
     @Test
     public void testActivateUserAccount(){
         ApiResponse<?> activateUserAccountResponse =
-                userService.activateUserAccount("abc1234.erytuol.67t756");
+                userService.activateUserAccount("abc1234.erytuuoi.67t75646");
         assertThat(activateUserAccountResponse).isNotNull();
     }
 
@@ -140,4 +142,31 @@ public class UserServiceTest {
         }
 
     }
+
+    @Test
+    public void testThatUserCanBeSuggestedByInterest() {
+        Set<String> firstInterests = Set.of("music", "reading");
+        Set<String> secondInterests = Set.of("Sports", "Coding");
+        Set<String> thirdInterests = Set.of("Sports", "Coding");
+        Set<String> forthInterests = Set.of("Sports", "coding");
+
+        UpdateUserRequest updateUserRequest = buildUpdateRequest();
+        updateUserRequest.setInterests(firstInterests);
+        UpdateUserResponse response = userService.updateProfile(updateUserRequest, 501L);
+
+        updateUserRequest.setInterests(secondInterests);
+        userService.updateProfile(updateUserRequest, 502L);
+
+        updateUserRequest.setInterests(thirdInterests);
+        userService.updateProfile(updateUserRequest, 503L);
+
+        updateUserRequest.setInterests(forthInterests);
+        userService.updateProfile(updateUserRequest, 504L);
+
+        List<User> usersWithCommonInterests = userService.suggestUserByInterest(504L);
+
+        assertThat(usersWithCommonInterests.size()).isGreaterThan(0);
+
+    }
+
 }

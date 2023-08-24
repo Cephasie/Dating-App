@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static africa.semicolon.promiscuous.utils.AppUtils.generateActivationLink;
+import static africa.semicolon.promiscuous.utils.JwtUtils.generateToken;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
@@ -25,9 +26,9 @@ class AppUtilsTest {
     }
 
     @Test
-    public void generateToken(){
+    public void generateTokenTest(){
         String email = "test@email.com";
-        String token = JwtUtils.generateToken(email);
+        String token = generateToken(email);
         log.info("generated token --> {} ", token);
         assertThat(token).isNotNull();
 
