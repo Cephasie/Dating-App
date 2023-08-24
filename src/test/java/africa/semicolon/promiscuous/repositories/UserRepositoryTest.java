@@ -17,7 +17,7 @@ class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    public void findByEmail(){
+    public void findByEmailTest(){
         userRepository.save(
                 User.builder().
                         email("hemba@gmail.com")
@@ -41,7 +41,7 @@ class UserRepositoryTest {
 
         Optional<User> foundUser = userRepository.findByEmail("hemba@gmail.com");
         assertThat(foundUser).isPresent();
-        assertThat(foundUser).isNotNull();
+        assertThat(foundUser.get()).isNotNull();
 
 
     }

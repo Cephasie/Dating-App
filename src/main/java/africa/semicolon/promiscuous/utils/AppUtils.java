@@ -15,7 +15,7 @@ public class AppUtils {
     public static final String APP_NAME = "promiscuous inc";
     public static final String APP_EMAIL = "noreply@promiscuous.africa";
     public static final String WELCOME_MAIL_SUBJECT = "Welcome to promiscuous inc.";
-    public static final String TEST_IMAGE_LOCATION = " ";
+    public static final String TEST_IMAGE_LOCATION = "C:\\Users\\USER\\Desktop\\Spring_Projects\\promiscuous\\src\\main\\resources\\images\\L2u9aY5uuAOp1STLEzjhy3ttStLVC00wR7cpxesT.jpg";
     public static final String BLANK_SPACE = " ";
     private static final String MAIL_TEMPLATE_LOCATION = "C:\\Users\\USER\\Desktop\\Spring_Projects\\promiscuous\\src\\main\\resources\\templates\\index.html";
     private static final String EMPTY_STRING = "";

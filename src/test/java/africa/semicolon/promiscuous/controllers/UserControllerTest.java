@@ -2,6 +2,7 @@ package africa.semicolon.promiscuous.controllers;
 
 import africa.semicolon.promiscuous.dtos.requests.FindUserRequest;
 import africa.semicolon.promiscuous.dtos.requests.RegisterUserRequest;
+import africa.semicolon.promiscuous.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -15,38 +16,34 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @Slf4j
 public class UserControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private UserService userService;
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Test
     public void testRegister(){
-
         try {
-
             RegisterUserRequest request = new RegisterUserRequest();
-            request.setEmail("gojofek702@weishu8.com");
+            request.setEmail("bibeni9669@touchend.com");
             request.setPassword("password");
-            String json = mapper.writeValueAsString(request);
-            log.info("request --> {}", json);
+            String json=mapper.writeValueAsString(request);
             mockMvc.perform(
                             MockMvcRequestBuilders.post("/api/v1/user")
                                     .content(json)
-                                    .contentType(APPLICATION_JSON)
-                    ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.CREATED.value()))
+                                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    ).andExpect(MockMvcResultMatchers.status()
+                            .is(HttpStatus.CREATED.value()))
                     .andDo(MockMvcResultHandlers.print());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (Exception exception) {
+            throw new RuntimeException(exception);
         }
-
     }
 
     @Test
@@ -191,9 +188,7 @@ public class UserControllerTest {
             ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.CREATED.value()));
         } catch (Exception e) {
             throw new RuntimeException(e);
+
         }
     }
-
-
-
 }
