@@ -31,8 +31,8 @@ public class MailServiceTest {
         List<Recipient> recipients = new ArrayList<>();
         recipients.add(recipient);
 
-        Sender sender = new Sender();
-        sender.setEmail(mailSender);
+//        Sender sender = new Sender();
+//        sender.setEmail(mailSender);
 
         EmailNotificationRequest request = new EmailNotificationRequest();
         request.setMailContent(message);
