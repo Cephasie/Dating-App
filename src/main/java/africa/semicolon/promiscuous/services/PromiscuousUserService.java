@@ -154,7 +154,7 @@ public class PromiscuousUserService implements UserService{
         JsonPatch updatePatch = buildUpdatePatch(updateUserRequest);
         JsonNode userNode = objectMapper.convertValue(user,JsonNode.class);
         try{
-            //2Apply patch to JsinNode from step 1
+            //2Apply patch to JsonNode from step 1
             JsonNode updateNode = updatePatch.apply(userNode);
             //3Convert updatedNode to user
             user = objectMapper.convertValue(updateNode, User.class);
