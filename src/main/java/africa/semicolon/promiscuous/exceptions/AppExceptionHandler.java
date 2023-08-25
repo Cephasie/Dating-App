@@ -19,7 +19,7 @@ public class AppExceptionHandler {
         return ResponseEntity.badRequest().body(response);
 
     @ExceptionHandler(value = {PromiscuousBaseException.class})
-    @ResponseStatus(BAD_REQUEST)
+    @ResponseStatus(BAD_REQUEST
 
         public ResponseEntity<?> handler(PromiscuousBaseException exception) {
             var response = ApiResponse.builder().data(exception.getMessage());
